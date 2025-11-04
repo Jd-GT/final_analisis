@@ -1,4 +1,4 @@
-## 🚀 Instalación
+##  Instalación
 
 Sigue estos pasos **uno por uno** para instalar y configurar el proyecto en tu computadora:
 
