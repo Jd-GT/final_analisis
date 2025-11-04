@@ -1,36 +1,143 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block title %}Inicio - Análisis
+Numérico{% endblock %} {% block content %}
+<div class="container">
+  <div class="text-center mt-5">
+    <h1 class="display-4 mb-4" style="color: var(--brown)">
+      Proyecto de Análisis Numérico
+    </h1>
+    <p class="lead mb-5" style="color: var(--muted)">
+      Selecciona un capítulo para comenzar a trabajar con los métodos numéricos
+    </p>
 
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Proyecto Análisis Numérico</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="{% static 'css/gothic.css' %}" />
-  </head>
-  <body
-    class="bg-light d-flex align-items-center justify-content-center vh-100"
-  >
-    <div class="text-center">
-      <h1 class="mb-4">Proyecto de Análisis Numérico</h1>
-      <div class="d-grid gap-3 col-6 mx-auto">
-        <a href="{% url 'capitulo1' %}" class="btn btn-primary btn-lg"
-          >Capítulo 1: Métodos de Raíces</a
-        >
-        <a
-          href="{% url 'capitulo2_formulario' %}"
-          class="btn btn-success btn-lg"
-          >Capítulo 2: Métodos Iterativos</a
-        >
-        <a
-          href="{% url 'interpolacion_formulario' %}"
-          class="btn btn-info btn-lg"
-          >Capítulo 3: Interpolación</a
-        >
+    <!-- Añadimos la clase index-cards para aplicar el CSS -->
+    <div class="row justify-content-center g-4 index-cards">
+      <!-- Capítulo 1 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm" style="transition: transform 0.3s">
+          <div class="card-body text-center">
+            <div class="card-content">
+              <h3 class="card-title" style="color: var(--brown)">Capítulo 1</h3>
+              <p class="card-text" style="color: var(--muted)">
+                Métodos de solución de ecuaciones
+              </p>
+              <ul
+                class="list-unstyled text-start"
+                style="font-size: 0.9em; color: var(--text)"
+              >
+                <li>✓ Bisección</li>
+                <li>✓ Punto Fijo</li>
+                <li>✓ Regla Falsa</li>
+                <li>✓ Secante</li>
+                <li>✓ Newton-Raphson</li>
+                <li>✓ Raíces Múltiples</li>
+              </ul>
+            </div>
+            <a href="{% url 'capitulo1' %}" class="btn btn-primary mt-3 w-100"
+              >Explorar</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Capítulo 2 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm" style="transition: transform 0.3s">
+          <div class="card-body text-center">
+            <div class="card-content">
+              <h3 class="card-title" style="color: var(--olive)">Capítulo 2</h3>
+              <p class="card-text" style="color: var(--muted)">
+                Métodos iterativos para sistemas lineales
+              </p>
+              <ul
+                class="list-unstyled text-start"
+                style="font-size: 0.9em; color: var(--text)"
+              >
+                <li>✓ Jacobi</li>
+                <li>✓ Gauss-Seidel</li>
+                <li>✓ SOR (Sobrerelajación)</li>
+                <li>✓ Comparación de métodos</li>
+              </ul>
+            </div>
+            <a
+              href="{% url 'capitulo2_formulario' %}"
+              class="btn btn-success mt-3 w-100"
+              >Explorar</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Capítulo 3 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm" style="transition: transform 0.3s">
+          <div class="card-body text-center">
+            <div class="card-content">
+              <h3 class="card-title" style="color: var(--rust)">Capítulo 3</h3>
+              <p class="card-text" style="color: var(--muted)">
+                Interpolación de funciones
+              </p>
+              <ul
+                class="list-unstyled text-start"
+                style="font-size: 0.9em; color: var(--text)"
+              >
+                <li>✓ Vandermonde</li>
+                <li>✓ Lagrange</li>
+                <li>✓ Newton</li>
+                <li>✓ Spline Lineal</li>
+                <li>✓ Spline Cúbico</li>
+              </ul>
+            </div>
+            <a
+              href="{% url 'interpolacion_formulario' %}"
+              class="btn btn-danger mt-3 w-100"
+              >Explorar</a
+            >
+          </div>
+        </div>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+
+<style>
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-deep) !important;
+  }
+  
+  /* Asegurar que todas las tarjetas tengan la misma altura */
+  .index-cards .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 450px; /* Altura mínima consistente */
+  }
+  
+  /* El cuerpo de la tarjeta debe expandirse y usar flexbox */
+  .index-cards .card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.5rem;
+  }
+  
+  /* El contenido principal debe expandirse para empujar el botón al fondo */
+  .index-cards .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* La lista debe tomar el espacio disponible */
+  .index-cards .list-unstyled {
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+  
+  /* El botón siempre debe estar al fondo */
+  .index-cards .btn {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+</style>
+{% endblock %}
