@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe Comparativo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/gothic.css' %}">
+
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Informe Comparativo de Métodos</h1>
+
+    {% if metodo_real %}
+    <div class="alert alert-info mt-2">
+        <strong>Nota:</strong> El valor real fue <strong>ingresado manualmente</strong> por el usuario.
+    </div>
+    {% endif %}
+
+    {# Mostrar los polinomios si existen #}
+    {% if polinomio_vandermonde %}
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            <strong>Polinomios interpolantes</strong>
+        </div>
+        <div class="card-body">
+            <p><strong>Vandermonde:</strong> {{ polinomio_vandermonde }}</p>
+            <p><strong>Lagrange:</strong>    {{ polinomio_lagrange }}</p>
+            <p><strong>Newton:</strong>      {{ polinomio_newton }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if splines_lineales %}
+    <hr>
+    <p><strong>Splines lineales:</strong></p>
+    <ul>
+        {% for s, intervalo in splines_lineales %}
+            <li><strong>En {{ intervalo }}:</strong> {{ s }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if splines_cubicos %}
+    <p><strong>Splines cúbicos:</strong></p>
+    <ul>
+        {% for s, intervalo in splines_cubicos %}
+            <li><strong>En {{ intervalo }}:</strong> {{ s }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if punto_eval %}
+        <h5>Comparación de errores en x = {{ punto_eval }}:</h5>
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>Método</th>
+                    <th>Valor aproximado</th>
+                    <th>Valor real</th>
+                    <th>Error absoluto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for metodo, datos in informe.items %}
+                    <tr>
+                        <td>{{ metodo }}</td>
+                        <td>{{ datos.aproximado }}</td>
+                        <td>{{ datos.real }}</td>
+                        <td>{{ datos.error }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-warning">
+            No se ingresó un punto de evaluación. El informe no puede calcular errores.
+        </div>
+    {% endif %}
+
+    {% if mejores_metodos %}
+    <div class="alert alert-success mt-4">
+        <strong>Mejor método{% if mejores_metodos|length > 1 %}s{% endif %} según el menor error:</strong>
+        {{ mejores_metodos|join:", " }}
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="{% url 'interpolacion_formulario' %}" class="btn btn-secondary">Volver al formulario</a>
+    </div>
+</div>
+</body>
+</html>
