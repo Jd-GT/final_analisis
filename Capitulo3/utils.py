@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import scipy
 import sympy as sp
 
 def vandermonde(x, y):
